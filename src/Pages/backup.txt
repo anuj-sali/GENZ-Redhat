@@ -1,0 +1,328 @@
+import React from "react";
+
+import {
+  EuiPageHeader,
+  EuiButton,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiPanel,
+  EuiSpacer,
+  EuiText,
+  EuiSplitPanel,
+  EuiFieldText,
+  EuiDatePicker,
+  EuiFormRow,
+  EuiDatePickerRange,
+  EuiCard,
+  EuiIcon,
+} from "@elastic/eui";
+
+import axios from "axios";
+
+import moment from "moment";
+import PostsComponent from "./PostsComponent";
+import { set } from "lodash";
+
+// const startDate = moment();
+
+// const endDate = moment().add(11, 'd');
+
+const baseURL = "http://localhost:3000/api/v1/breach-analysis";
+
+function AdvancedSearch1() {
+  const [showSearch, setShowSearch] = React.useState(false);
+  const [disableFreeTextSearch, setDisableFreeTextSearch] =
+    React.useState(false);
+  const [disableCompanyNameSearch, setDisableCompanyNameSearch] =
+    React.useState(false);
+  const [disableDateSearch, setDisableDateSearch] = React.useState(false);
+
+  let searchOffset = 0;
+
+  let searchTerm = "";
+
+  const [freeSearchInput, setFreeSearchInput] = React.useState("");
+
+  const [companyNameSearchInput, setCompanyNameSearchInput] =
+    React.useState("");
+
+  const [startDate, setStartDate] = React.useState(moment());
+
+  const [endDate, setEndDate] = React.useState(moment().add(1, "d"));
+
+  const [posts, setPost] = React.useState(null);
+
+  const handleFreeSearchChange = (e) => {
+    setDisableCompanyNameSearch(true);
+    setDisableDateSearch(true);
+    setFreeSearchInput(e.target.value);
+
+    searchTerm = e.target.value;
+
+    setShowSearch(true);
+
+    freeSearch(searchTerm);
+  };
+
+  const handleCompanyNameChange = (e) => {
+    setCompanyNameSearchInput(e.target.value);
+
+    searchTerm = e.target.value;
+
+    setShowSearch(true);
+
+    searchByCompanyName(searchTerm);
+    setDisableDateSearch(true);
+    setDisableFreeTextSearch(true);
+  };
+
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+  };
+
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+
+    // setShowSearch(true);
+
+    //searchBetweenDate();
+  };
+
+  React.useEffect(() => {
+    // to disable rightScroller //
+    document.body.style.overflow = "hidden";
+
+    axios
+      .get("http://localhost:3000/api/v1/breach-analysis/all")
+      .then((response) => {
+        setPost(response.data);
+        setShowSearch(false);
+      });
+  }, []);
+
+  function handleResetClick() {
+    setShowSearch(false);
+    setFreeSearchInput("");
+    setCompanyNameSearchInput("");
+    setStartDate(moment());
+    setEndDate(moment().add(1, "d"));
+    setDisableFreeTextSearch(false);
+    setDisableCompanyNameSearch(false);
+    setDisableDateSearch(false);
+  }
+
+  function freeSearch(searchTerm) {
+    console.log("Free Search  func called");
+    console.log(searchTerm);
+
+    axios
+      .get(`${baseURL}/free-search`, {
+        params: { term: searchTerm, offset: searchOffset },
+      })
+      .then((response) => {
+        console.log(response.data);
+
+        setPost(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function searchByCompanyName(searchTerm) {
+    console.log("Company Name func called");
+
+    console.log(companyNameSearchInput);
+
+    console.log(searchTerm);
+
+    axios
+
+      .get(`${baseURL}/search-by-company`, {
+        params: { term: searchTerm, offset: searchOffset },
+      })
+
+      .then((response) => {
+        console.log(response.data);
+
+        setPost(response.data);
+      })
+
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function searchBetweenDate() {
+    setDisableFreeTextSearch(true);
+    setDisableCompanyNameSearch(true);
+    setShowSearch(true);
+    console.log("Datewise func called");
+
+    console.log(startDate);
+
+    console.log(endDate);
+
+    axios
+
+      .get(`${baseURL}/search-by-date-range`, {
+        params: {
+          start: startDate.format("YYYY-MM-DD"),
+
+          end: endDate.format("YYYY-MM-DD"),
+
+          offset: searchOffset,
+        },
+      })
+
+      .then((response) => {
+        console.log(response.data);
+
+        setPost(response.data);
+      })
+
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+ if(!posts) return "No Posts";
+ 
+  return (
+    <>
+      <div className="mx-4 mt-3">
+        <EuiPageHeader
+          pageTitle={
+            <span className="fs-2" style={{ marginRight: "20px" }}>
+              Advanced Search:
+            </span>
+          }
+          iconType="searchProfilerApp"
+          alignItems={"center"}
+        />
+      </div>
+
+      <EuiSpacer size="s"></EuiSpacer>
+
+      <EuiFlexGroup style={{ minHeight: 500 }}>
+        <EuiFlexItem grow={4}>
+          <EuiPanel>
+            <p
+              style={{
+                fontSize: 15,
+                marginBottom: 3,
+                fontWeight: 300,
+                fontFamily: "Roboto Condensed",
+              }}
+            >
+              Free Text Search
+            </p>
+
+            <EuiFieldText
+              value={freeSearchInput}
+              onChange={(e) => handleFreeSearchChange(e)}
+              disabled={disableFreeTextSearch}
+            />
+
+            <p style={{ fontSize: 13, marginBottom: 25, fontWeight: 300 }}>
+              Search in all available columns
+            </p>
+
+            <p
+              style={{
+                fontSize: 15,
+                marginBottom: 3,
+                fontWeight: 300,
+                fontFamily: "Roboto Condensed",
+              }}
+            >
+              Compromised Company Name
+            </p>
+
+            <EuiFieldText
+              prepend={"Contains"}
+              value={companyNameSearchInput}
+              onChange={(e) => handleCompanyNameChange(e)}
+              disabled={disableCompanyNameSearch}
+            />
+
+            <div style={{ marginTop: 25 }}>
+              <p
+                style={{
+                  fontSize: 15,
+                  marginBottom: 3,
+                  fontWeight: 300,
+                  fontFamily: "Roboto Condensed",
+                }}
+              >
+                Breach Date
+              </p>
+
+              <EuiFormRow>
+                <EuiDatePickerRange
+                  isInvalid={startDate > endDate}
+                  startDateControl={
+                    <EuiDatePicker
+                      selected={startDate}
+                      startDate={startDate}
+                      aria-label="Start date"
+                      onChange={handleStartDateChange}
+                    />
+                  }
+                  endDateControl={
+                    <EuiDatePicker
+                      selected={endDate}
+                      endDate={endDate}
+                      aria-label="End date"
+                      onChange={handleEndDateChange}
+                    />
+                  }
+                />
+              </EuiFormRow>
+            </div>
+
+            <div className="row mt-4 justify-content-md-center">
+              <div className="col-md-4">
+                <EuiButton
+                  color="primary"
+                  size={"s"}
+                  onClick={searchBetweenDate}
+                  isDisabled={disableDateSearch}
+                >
+                  Search
+                </EuiButton>
+              </div>
+
+              <div className="col-md-4">
+                <EuiButton
+                  color={"danger"}
+                  size={"s"}
+                  onClick={handleResetClick}
+                >
+                  Reset
+                </EuiButton>
+              </div>
+            </div>
+          </EuiPanel>
+        </EuiFlexItem>
+
+        <EuiFlexItem grow={8}>
+          <EuiPanel className="" style={{ minHeight: "500px" }}>
+            {showSearch ? (
+              <PostsComponent posts={posts} />
+            ) : (
+              <div style={{ marginTop: 10 }}>
+                <EuiCard
+                  icon={<EuiIcon size="xxl" type="searchProfilerApp" />}
+                  title="Search Contents"
+                  description="All given fields are not required for searching. You can search with one or more fields."
+                />
+              </div>
+            )}
+          </EuiPanel>
+        </EuiFlexItem>
+      </EuiFlexGroup>
+    </>
+  );
+}
+
+export default AdvancedSearch1;
