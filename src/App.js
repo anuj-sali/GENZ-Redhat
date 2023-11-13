@@ -8,6 +8,8 @@ import './App.css';
 // import LatestBreaches from './Pages/LatestBreaches/LatestBreaches1';
 // import DataManagement from "./Pages/DataManagement1"
 import Header from './Partials/Header/Header';
+import Navbar from './Partials/Navbar/Navbar';
+import Cart from "../src/Partials/Navbar/Cart";
 
 import {
   BrowserRouter as Router,
@@ -24,9 +26,11 @@ function App () {
         {/* <div className='container-fluid eui-yScroll'> */}
         <div className='app'>
           <Router>
-          <Header />
+          {/* <Header /> */}
+          <Navbar />
           
             <Routes> 
+            <Route path="/cart" element={<Cart />} />
               {/* <Route exact path="/" element={<Dashboard1/>} />
               <Route exact path="/breaches" element={<LatestBreaches />} />
               <Route exact path="/latestBreaches" element={<Intel471Page />} />

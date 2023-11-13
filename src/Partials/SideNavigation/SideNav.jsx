@@ -26,17 +26,17 @@ function SideNav() {
     { label: 'Lex', onClick: () => {} }
   ];
   return (
-    <div className="mx-3" >
+    <div >
     <EuiCollapsibleNav
       id={guideHeaderCollapsibleNavId}
-      style={{ top: 48, paddingBottom: 48}}
-      size={250}
+      style={{ top: 72, paddingBottom: 48, borderRadius: 10, backgroundColor: "white"}}
+      size={220}
       aria-label="Main navigation"
       isOpen={navIsOpen}
       isDocked={navIsDocked}
       button={
         <EuiHeaderSectionItemButton
-          style = {{"backgroundColor": "#25282f"}}
+          style = {{"backgroundColor": "white"}}
           aria-label="Toggle main navigation"
             onClick={() => setNavIsOpen(!navIsOpen)
           // onClick={() => setNavIsOpen(false)
