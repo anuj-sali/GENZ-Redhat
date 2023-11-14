@@ -51,7 +51,7 @@ function SideNav() {
       <EuiFlexItem>
       <Link to="/" >
       <EuiCollapsibleNavGroup 
-          title="Dashboard"
+          title="Main Page"
           iconType="dashboardApp"
           isCollapsible={false}
           background="none"
@@ -60,9 +60,9 @@ function SideNav() {
         </Link>
       </EuiFlexItem>
       <EuiFlexItem>
-      <Link to="/latestBreaches" >
+      <Link to="/docqa" >
       <EuiCollapsibleNavGroup 
-          title="Latest Breaches"
+          title="Document Question Answering Tool"
           iconType="launch"
           isCollapsible={false}
           background="none"

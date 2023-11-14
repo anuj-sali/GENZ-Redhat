@@ -204,6 +204,8 @@ const handleBuy = () => {
     </Box>
   </SimpleGrid>
 </Box>
+
+
   )
 }
 

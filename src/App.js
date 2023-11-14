@@ -4,7 +4,7 @@ import './App.css';
 // import Intel471Page from './Pages/Intel471Page';
 // import AdvancedSearch1 from "./Pages/AdvancedSearch1";
 // import Dashboard1 from './Pages/Dashboard/Dashboard1';
-// import LatestBreaches from './Pages/LatestBreaches/LatestBreaches';
+import DocQA from './Pages/DocQA/DocQA';
 // import LatestBreaches from './Pages/LatestBreaches/LatestBreaches1';
 // import DataManagement from "./Pages/DataManagement1"
 import Header from './Partials/Header/Header';
@@ -31,14 +31,15 @@ function App () {
           
             <Routes> 
             <Route path="/cart" element={<Cart />} />
-              {/* <Route exact path="/" element={<Dashboard1/>} />
-              <Route exact path="/breaches" element={<LatestBreaches />} />
-              <Route exact path="/latestBreaches" element={<Intel471Page />} />
+            
+              {/* <Route exact path="/" element={<Dashboard1/>} /> */}
+              <Route exact path="/docqa" element={<DocQA />} />
+              {/* <Route exact path="/latestBreaches" element={<Intel471Page />} />
               <Route exact path="/search" element={<AdvancedSearch1 />} />
-                <Route path="/data" element={<DataManagement />} /> */}
-                {/* <Route path="/user" element={<UserManagement />} />  */}
+                <Route path="/data" element={<DataManagement />} /> 
+                 <Route path="/user" element={<UserManagement />} />  */}
             </Routes>
-            {/* <NewsScroller/> */}
+             {/* <NewsScroller/>  */}
           </Router>
         </div> 
         

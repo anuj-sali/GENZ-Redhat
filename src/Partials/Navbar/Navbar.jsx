@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Stack, Image, Select, Input, Text, Flex, Box } from "@chakra-ui/react";
 import "./navbar.css";
 import  SideNav from "../../Partials/SideNavigation/SideNav";
-import rentomojologo from "../../Images/Icons/imlogo2.png";
-import rmlogosmall from "../../Images/Icons/imsmall.png";
+import rentomojologo from "../../Images/Icons/logo1.png";
+import rmlogosmall from "../../Images/Icons/imsmall1.png";
 import { BsSearch, BsCart3 } from "react-icons/bs";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -115,6 +115,9 @@ const Navbar = () => {
     hasShadow
     alt="errorloading logo"
     src={rentomojologo}
+    // cursor={"pointer"}
+    onClick={() => navigate(`/`)}
+    style={{cursor:"pointer"}}
   />
 
 
