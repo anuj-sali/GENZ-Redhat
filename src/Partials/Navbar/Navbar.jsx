@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Stack, Image, Select, Input, Text, Flex, Box } from "@chakra-ui/react";
 import "./navbar.css";
 import  SideNav from "../../Partials/SideNavigation/SideNav";
-import rentomojologo from "../../Images/Icons/logo1.png";
-import rmlogosmall from "../../Images/Icons/imsmall1.png";
+import rentomojologo from "../../Images/Icons/logo.png";
+import rmlogosmall from "../../Images/Icons/imsmall.png";
+import location from "../../Images/Icons/location.png";
 import { BsSearch, BsCart3 } from "react-icons/bs";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +20,7 @@ import {
 // import Login from "./Login";
 import axios from "axios";
 // import { useDispatch, useSelector } from "react-redux";
-import Cart from "./Cart";
+import Cart from "../../Pages/Cart/Cart";
 import { getCartData } from "../Redux/App/actions";
 import {
   EuiPageHeader,
@@ -85,9 +86,9 @@ const Navbar = () => {
         base: "flex-start",
       }}
       alignItems="center"
-      p="10px"
+      p="7px"
       width="100%"
-      gap="10px"
+      // gap="10px"
       background="white"
       zIndex="9"
       pl={{ base: "2%", md: "", xl: "10%" }}
@@ -117,16 +118,15 @@ const Navbar = () => {
     src={rentomojologo}
     // cursor={"pointer"}
     onClick={() => navigate(`/`)}
-    style={{cursor:"pointer"}}
+    style={{cursor:"pointer", marginTop:"2px"}}
   />
 
-
-
       <Image
-        src={rmlogosmall}
+        src={location}
         alt="errorloading logo"
         width={"auto"}
         height={"40px"}
+        marginTop={"2px"}
         display={{ base: "inline-flex", md: "inline-flex", xl: "none" }}
         onClick={() => navigate(`/`)}
         cursor={"pointer"}
@@ -224,8 +224,18 @@ const Navbar = () => {
             {Cart.length}
           </Text>
         </Flex>
-        <BsCart3/>
-        <Text display={{ base: "none", md: "none", lg: "inline-flex" }}>
+
+        <Image
+        src={rmlogosmall}
+        alt="errorloading logo"
+        width={"auto"}
+        height={"40px"}
+        marginTop={"2px"}
+        display={{ base: "inline-flex", md: "inline-flex", xl: "none" }}
+        onClick={() => navigate(`/`)}
+        cursor={"pointer"}
+      />
+        <Text fontSize='2xl' display={{ base: "none", md: "none", lg: "inline-flex" }}>
           Cart
         </Text>
       </Stack>

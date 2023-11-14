@@ -12,6 +12,7 @@ import {
 import {Link} from "react-router-dom"
 
 function SideNav() {
+
   const [navIsOpen, setNavIsOpen] = useState(
     JSON.parse(String(localStorage.getItem('navIsDocked'))) || false
   );
@@ -21,10 +22,7 @@ function SideNav() {
   const guideHeaderCollapsibleNavId = useGeneratedHtmlId({
     prefix: 'guideHeaderCollapsibleNav',
   });
-  const ExternalLinks = [
-    { label: 'Malware Analysis', onClick: () => {} },
-    { label: 'Lex', onClick: () => {} }
-  ];
+  
   return (
     <div >
     <EuiCollapsibleNav
@@ -70,7 +68,7 @@ function SideNav() {
         </EuiCollapsibleNavGroup>
         </Link>
       </EuiFlexItem>
-      <EuiFlexItem>
+      {/* <EuiFlexItem>
       <Link to="/breaches" >
       <EuiCollapsibleNavGroup 
           title="Breach Database"
@@ -102,7 +100,8 @@ function SideNav() {
         >
         </EuiCollapsibleNavGroup>
         </EuiLink>
-      </EuiFlexItem>
+      </EuiFlexItem> */}
+
       {/* <EuiFlexItem>
       <EuiLink href="/user">
       <EuiCollapsibleNavGroup 
