@@ -4,7 +4,6 @@ import "./navbar.css";
 import  SideNav from "../../Partials/SideNavigation/SideNav";
 import rentomojologo from "../../Images/Icons/logo.png";
 import rmlogosmall from "../../Images/Icons/imsmall.png";
-import location from "../../Images/Icons/location.png";
 import { BsSearch, BsCart3 } from "react-icons/bs";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +16,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-// import Login from "./Login";
+import Login from "../Login/Login";
 import axios from "axios";
 // import { useDispatch, useSelector } from "react-redux";
 import Cart from "../../Pages/Cart/Cart";
@@ -121,19 +120,20 @@ const Navbar = () => {
     style={{cursor:"pointer", marginTop:"2px"}}
   />
 
-      <Image
+      {/* <Image
         src={location}
         alt="errorloading logo"
         width={"auto"}
-        height={"40px"}
+        height={"30px"}
         marginTop={"2px"}
         display={{ base: "inline-flex", md: "inline-flex", xl: "none" }}
         onClick={() => navigate(`/`)}
         cursor={"pointer"}
-      />
+      /> */}
+
 
       <Select
-        width={"150px"}
+        width={"120px"}
         height={"25px"}
         display={{ base: "none", md: "none", lg: "inline-flex" }}
       >
@@ -240,7 +240,7 @@ const Navbar = () => {
         </Text>
       </Stack>
       
-      {/* <Login /> */}
+      <Login />
     </Flex>
     
     </>

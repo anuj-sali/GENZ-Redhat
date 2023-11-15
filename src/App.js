@@ -2,6 +2,7 @@ import './App.css';
 import Navbar from './Partials/Navbar/Navbar';
 import DocQA from './Pages/DocQA/DocQA';
 import Cart from "./Pages/Cart/Cart";
+import Homepage from "./Pages/HomePage/Homepage"
 import {
   BrowserRouter as Router,
   Routes,
@@ -20,9 +21,9 @@ function App () {
           <Navbar />
           
             <Routes> 
+            <Route exact path="/" element={<Homepage/>} />
             <Route path="/cart" element={<Cart />} />
-              {/* <Route exact path="/" element={<Dashboard1/>} /> */}
-              <Route exact path="/docqa" element={<DocQA />} />
+            <Route exact path="/docqa" element={<DocQA />} />
             </Routes>
              {/* <NewsScroller/>  */}
           </Router>
